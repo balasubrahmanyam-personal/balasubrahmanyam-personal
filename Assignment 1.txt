@@ -1,0 +1,80 @@
+1.Create data with Auto_increment
+2.Check whether it show desc on tablename "extra" field
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.32 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> create database information;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use information;
+Database changed
+mysql> create table information(id int auto_increment primary key,name varchar(43),percent int,courses varchar(10));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc information;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(43) | YES  |     | NULL    |                |
+| percent | int         | YES  |     | NULL    |                |
+| courses | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into information(name,percent,courses) values("Mickey",88,"java";)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into information(name,percent,courses) values("Mickey",88,"java";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into information(name,percent,courses) values("Mickey",88,"java");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from information;
++----+--------+---------+---------+
+| id | name   | percent | courses |
++----+--------+---------+---------+
+|  1 | Mickey |      88 | java    |
++----+--------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into information(name,percent,courses) values("mike",99,"python"),("max",97,"js"),("mari",96,"react");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from information;
++----+--------+---------+---------+
+| id | name   | percent | courses |
++----+--------+---------+---------+
+|  1 | Mickey |      88 | java    |
+|  2 | mike   |      99 | python  |
+|  3 | max    |      97 | js      |
+|  4 | mari   |      96 | react   |
++----+--------+---------+---------+
+4 rows in set (0.00 sec)
+
+https://lucid.app/lucidspark/db4b259e-242f-4dfe-ab7a-7ce989c8261a/edit?invitationId=inv_e97419c8-492e-4acf-8669-67bc37566018

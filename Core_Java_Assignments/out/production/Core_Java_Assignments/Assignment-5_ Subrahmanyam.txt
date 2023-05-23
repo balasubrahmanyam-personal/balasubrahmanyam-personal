@@ -1,0 +1,70 @@
+Q1) what is platform independent and dependent among JDK<JRE and JVM?
+-->As we all know that Java is platform independent but according to JDK,JRE,JVM are platform dependent due to having  own specility.When we download JDK to our resepective OS JRE and JVM also downloads.
+
+Q2)Can we use/download JRE directly without downloading JDK?
+-->Yes we can download JRE without JDK.And also we can use if we have byte code.
+  Example::Online platforms of java compiler.
+
+Q1)JConsole
+-->JConsole is nothing but how the java programs going on backside.How many classes are executing,how much time its taking,how many methods are running,how many programs are running in resepective platform of Java ...which gives detail info about Java programming still starting to ending know as JConsole.
+
+Q2)JIT
+-->Just In Time present in JRE.Goal to excute the code fast and converting  byte code to machine code.Finally step of compiler.
+
+Q4)diff b/w access specifier and access modifier?
+-->At past we called access specifier and access modifier are different.But now there is no access specifier and we calling both specifier and modifier has access modifier having public,private,protected,default.
+
+Q5)Can we have multiple main methods in class?
+-->Yes we can.we can have n number of classes that can be access by main method after passing suitable object.But in public class only we can access.
+
+Q6)can we overload and override the main method?
+-->We can overload if the main functions are same and having different parameters.we can override the main method but if you have static keyword we can't override in main method.
+
+Q7)can i write main method as private,protected and default?
+-->Yes we can but we can't access the any type of methods from gobal(outside the main function).
+
+Q8)without a main method can we execute our code?how?
+-->We cannot execute the code without main method JVM asks for main method.But we can execute by using static intilization.
+
+Q9) can we change the return type of the main() method from void to any other data type like int return?
+-->I think we can't write with any other datatype.because return type is the entry point for java JVM.
+
+Q10)strictfp?
+-->It is a keyword which doesn't accept the floating point calculations.But it gives same result at every platform in floating point performs.
+
+Q11)Local,instance,static?
+class Instance{
+    static int count=3;
+    int result=0;
+    public void local()
+    {
+        int number1=33,number2=25;
+        result=number1 - number2;
+        System.out.println("Subtract is" + result);
+    }
+
+
+}
+public class Main{
+    public static void main(String[] args) {
+
+        Instance I = new Instance();
+        I.local();
+        int count= Instance.count;
+        System.out.println(+count);
+    }
+}
+Output:Subtract is8
+3
+Process finished with exit code 0
+
+Q12)Addition of two numbers with same datatype?
+public class Main{
+    public static void main(String args[]){
+        int number1=45;
+        int number2=32;
+        int number3=number1 + number2;
+        System.out.println("Addition of two numbers" + number3);
+    }
+}
+Output:Addition of two numbers77

@@ -1,0 +1,193 @@
+
+mysql> create table orders(oid int,odate date,id int,amount int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> alter table orders add primary key(oid) and add foreign key(id) references customers(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and add foreign key(id) references customers(id)' at line 1
+mysql> alter table orders add primary key(oid);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table orders add foreign key(id) references customers(id);
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'orders_ibfk_1' in the referenced table 'customers'
+mysql>  alter table orders add foreign key(id) references customers(id);
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'orders_ibfk_1' in the referenced table 'customers'
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | YES  |     | NULL    |       |
+| name    | varchar(44) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(77) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| oid    | int  | NO   | PRI | NULL    |       |
+| odate  | date | YES  |     | NULL    |       |
+| id     | int  | YES  |     | NULL    |       |
+| amount | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into customers(id,name,age,address,salary) values(1,"mani",21,"chennai",90000),(2,"lucky",21,"mumbai",50000),(3,"rams",22,"chennai",60000),(4,"vikas",23,"pune",60000),(5,"chandu",25,"chennai",70000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders(oid,odate,id,amount) values(1,"2002-01-01",1,20000),(2,"2002-02-02",1,30000),(3,"2002-03-03",2,20000),(4,"2002-04-04",3,34000),(5,"2002-05-05",3,60000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into orders(oid,odate,id,amount) values(1,"2002-01-01",1,20000),(2,"2002-02-02",1,30000),(3,"2002-03-03",2,20000),(4,"2002-04-04",3,34000),(5,"2002-05-05",3,60000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++------+--------+------+---------+--------+
+| id   | name   | age  | address | salary |
++------+--------+------+---------+--------+
+|    1 | mani   |   21 | chennai |  90000 |
+|    2 | lucky  |   21 | mumbai  |  50000 |
+|    3 | rams   |   22 | chennai |  60000 |
+|    4 | vikas  |   23 | pune    |  60000 |
+|    5 | chandu |   25 | chennai |  70000 |
++------+--------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from orders;
++-----+------------+------+--------+
+| oid | odate      | id   | amount |
++-----+------------+------+--------+
+|   1 | 2002-01-01 |    1 |  20000 |
+|   2 | 2002-02-02 |    1 |  30000 |
+|   3 | 2002-03-03 |    2 |  20000 |
+|   4 | 2002-04-04 |    3 |  34000 |
+|   5 | 2002-05-05 |    3 |  60000 |
++-----+------------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c inner join orders as o order by id;
++------+--------+--------+------------+
+| id   | name   | amount | odate      |
++------+--------+--------+------------+
+|    1 | mani   |  20000 | 2002-01-01 |
+|    1 | mani   |  30000 | 2002-02-02 |
+|    1 | mani   |  20000 | 2002-03-03 |
+|    1 | mani   |  34000 | 2002-04-04 |
+|    1 | mani   |  60000 | 2002-05-05 |
+|    2 | lucky  |  20000 | 2002-01-01 |
+|    2 | lucky  |  30000 | 2002-02-02 |
+|    2 | lucky  |  20000 | 2002-03-03 |
+|    2 | lucky  |  34000 | 2002-04-04 |
+|    2 | lucky  |  60000 | 2002-05-05 |
+|    3 | rams   |  20000 | 2002-01-01 |
+|    3 | rams   |  30000 | 2002-02-02 |
+|    3 | rams   |  20000 | 2002-03-03 |
+|    3 | rams   |  34000 | 2002-04-04 |
+|    3 | rams   |  60000 | 2002-05-05 |
+|    4 | vikas  |  20000 | 2002-01-01 |
+|    4 | vikas  |  30000 | 2002-02-02 |
+|    4 | vikas  |  20000 | 2002-03-03 |
+|    4 | vikas  |  34000 | 2002-04-04 |
+|    4 | vikas  |  60000 | 2002-05-05 |
+|    5 | chandu |  20000 | 2002-01-01 |
+|    5 | chandu |  30000 | 2002-02-02 |
+|    5 | chandu |  20000 | 2002-03-03 |
+|    5 | chandu |  34000 | 2002-04-04 |
+|    5 | chandu |  60000 | 2002-05-05 |
++------+--------+--------+------------+
+25 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c inner join orders as o on(c.id=o.id);
++------+-------+--------+------------+
+| id   | name  | amount | odate      |
++------+-------+--------+------------+
+|    1 | mani  |  20000 | 2002-01-01 |
+|    1 | mani  |  30000 | 2002-02-02 |
+|    2 | lucky |  20000 | 2002-03-03 |
+|    3 | rams  |  34000 | 2002-04-04 |
+|    3 | rams  |  60000 | 2002-05-05 |
++------+-------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c left outer join order as o on (c.id=o.id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order as o on (c.id=o.id)' at line 1
+mysql> select c.id,c.name,o.amount,o.odate from customers as c left outer join orders as o on (c.id=o.id);
++------+--------+--------+------------+
+| id   | name   | amount | odate      |
++------+--------+--------+------------+
+|    1 | mani   |  30000 | 2002-02-02 |
+|    1 | mani   |  20000 | 2002-01-01 |
+|    2 | lucky  |  20000 | 2002-03-03 |
+|    3 | rams   |  60000 | 2002-05-05 |
+|    3 | rams   |  34000 | 2002-04-04 |
+|    4 | vikas  |   NULL | NULL       |
+|    5 | chandu |   NULL | NULL       |
++------+--------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.odate from customers as c right outer join orders as o on (c.id=o.id);
++------+-------+--------+------------+
+| id   | name  | amount | odate      |
++------+-------+--------+------------+
+|    1 | mani  |  20000 | 2002-01-01 |
+|    1 | mani  |  30000 | 2002-02-02 |
+|    2 | lucky |  20000 | 2002-03-03 |
+|    3 | rams  |  34000 | 2002-04-04 |
+|    3 | rams  |  60000 | 2002-05-05 |
++------+-------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id,c.name,o.amount,o.date from customers as c right outer join orders as o on (c.id=o.id) order by id;
+ERROR 1054 (42S22): Unknown column 'o.date' in 'field list'
+mysql>  select c.id,c.name,o.amount,o.odate from customers as c right outer join orders as o on (c.id=o.id) order by id;
++------+-------+--------+------------+
+| id   | name  | amount | odate      |
++------+-------+--------+------------+
+|    1 | mani  |  20000 | 2002-01-01 |
+|    1 | mani  |  30000 | 2002-02-02 |
+|    2 | lucky |  20000 | 2002-03-03 |
+|    3 | rams  |  34000 | 2002-04-04 |
+|    3 | rams  |  60000 | 2002-05-05 |
++------+-------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select c.id,c.name from customers as c union all select o.amount,o.odate from orders as o order by id;
++-------+------------+
+| id    | name       |
++-------+------------+
+|     1 | mani       |
+|     2 | lucky      |
+|     3 | rams       |
+|     4 | vikas      |
+|     5 | chandu     |
+| 20000 | 2002-01-01 |
+| 20000 | 2002-03-03 |
+| 30000 | 2002-02-02 |
+| 34000 | 2002-04-04 |
+| 60000 | 2002-05-05 |
++-------+------------+
+10 rows in set (0.00 sec)
+
+mysql> address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c2.address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c' at line 1
+mysql> address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c2.address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address from customers as c1,customers as c2 where c1.id!=c2.id and c1.address=c' at line 1
+mysql> update customers set address="chennai" where id=3;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from customers;
++------+--------+------+---------+--------+
+| id   | name   | age  | address | salary |
++------+--------+------+---------+--------+
+|    1 | mani   |   21 | chennai |  90000 |
+|    2 | lucky  |   21 | mumbai  |  50000 |
+|    3 | rams   |   22 | chennai |  60000 |
+|    4 | vikas  |   23 | pune    |  60000 |
+|    5 | chandu |   25 | chennai |  70000 |
++------+--------+------+---------+--------+
+5 rows in set (0.00 sec)

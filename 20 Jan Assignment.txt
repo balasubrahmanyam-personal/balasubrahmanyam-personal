@@ -1,0 +1,375 @@
+mysql>  create table studentdata(roll_no int,name varchar(55),division varchar(2),branch varchar(10),city varchar(65),marks int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into studentdata(roll_no,name,division,branch,city,marks) values(10,"rams",'A',"CSE","mumbai",88),(11,"raja",'A',"CSE","pune",87),(12,"vikas",'A',"ECE","chennai",93),(13,"phani",'C',"EEE","chennai",91),(14,"chandu",'C',"ECE","kerala",73),(15,"prakesh",'A',"CSE","goa",53),(16,"surya",'B',"IT","tamilnadu",93),(17,"naveen",'B',"EEE","dehli",86),(18,"srinu",'A',"CSE","kochi",98),(19,"lucky",'B',"IT","jammu",83);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> desc studentdata;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll_no  | int         | YES  |     | NULL    |       |
+| name     | varchar(55) | YES  |     | NULL    |       |
+| division | varchar(2)  | YES  |     | NULL    |       |
+| branch   | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(65) | YES  |     | NULL    |       |
+| marks    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from studentdata;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|      10 | rams    | A        | CSE    | mumbai    |    88 |
+|      11 | raja    | A        | CSE    | pune      |    87 |
+|      12 | vikas   | A        | ECE    | chennai   |    93 |
+|      13 | phani   | C        | EEE    | chennai   |    91 |
+|      14 | chandu  | C        | ECE    | kerala    |    73 |
+|      15 | prakesh | A        | CSE    | goa       |    53 |
+|      16 | surya   | B        | IT     | tamilnadu |    93 |
+|      17 | naveen  | B        | EEE    | dehli     |    86 |
+|      18 | srinu   | A        | CSE    | kochi     |    98 |
+|      19 | lucky   | B        | IT     | jammu     |    83 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> select name,city from studentdata;
++---------+-----------+
+| name    | city      |
++---------+-----------+
+| rams    | mumbai    |
+| raja    | pune      |
+| vikas   | chennai   |
+| phani   | chennai   |
+| chandu  | kerala    |
+| prakesh | goa       |
+| surya   | tamilnadu |
+| naveen  | dehli     |
+| srinu   | kochi     |
+| lucky   | jammu     |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select distinct name from studentdata;
++---------+
+| name    |
++---------+
+| rams    |
+| raja    |
+| vikas   |
+| phani   |
+| chandu  |
+| prakesh |
+| surya   |
+| naveen  |
+| srinu   |
+| lucky   |
++---------+
+10 rows in set (0.00 sec)
+
+mysql> select * from studentdata;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|      10 | rams    | A        | CSE    | mumbai    |    88 |
+|      11 | raja    | A        | CSE    | pune      |    87 |
+|      12 | vikas   | A        | ECE    | chennai   |    93 |
+|      13 | phani   | C        | EEE    | chennai   |    91 |
+|      14 | chandu  | C        | ECE    | kerala    |    73 |
+|      15 | prakesh | A        | CSE    | goa       |    53 |
+|      16 | surya   | B        | IT     | tamilnadu |    93 |
+|      17 | naveen  | B        | EEE    | dehli     |    86 |
+|      18 | srinu   | A        | CSE    | kochi     |    98 |
+|      19 | lucky   | B        | IT     | jammu     |    83 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> select name,marks from studentdata marks>75;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>75' at line 1
+mysql> select name,marks from studentdata where marks>75;
++--------+-------+
+| name   | marks |
++--------+-------+
+| rams   |    88 |
+| raja   |    87 |
+| vikas  |    93 |
+| phani  |    91 |
+| surya  |    93 |
+| naveen |    86 |
+| srinu  |    98 |
+| lucky  |    83 |
++--------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select name from studentdata where name like 's%';
++-------+
+| name  |
++-------+
+| surya |
+| srinu |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select name,marks from studentdata where marks between 50 and 60;
++---------+-------+
+| name    | marks |
++---------+-------+
+| prakesh |    53 |
++---------+-------+
+1 row in set (0.00 sec)
+
+mysql> update studentdata set branch="IT",where roll_no=18;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where roll_no=18' at line 1
+mysql>  update studentdata set branch="IT" where roll_no=18;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from studentdata;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|      10 | rams    | A        | CSE    | mumbai    |    88 |
+|      11 | raja    | A        | CSE    | pune      |    87 |
+|      12 | vikas   | A        | ECE    | chennai   |    93 |
+|      13 | phani   | C        | EEE    | chennai   |    91 |
+|      14 | chandu  | C        | ECE    | kerala    |    73 |
+|      15 | prakesh | A        | CSE    | goa       |    53 |
+|      16 | surya   | B        | IT     | tamilnadu |    93 |
+|      17 | naveen  | B        | EEE    | dehli     |    86 |
+|      18 | srinu   | A        | IT     | kochi     |    98 |
+|      19 | lucky   | B        | IT     | jammu     |    83 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> delete from studentdata where division is "EEE";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"EEE"' at line 1
+mysql> delete from studentdata where division="EEE";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from studentdata;
++---------+---------+----------+--------+-----------+-------+
+| roll_no | name    | division | branch | city      | marks |
++---------+---------+----------+--------+-----------+-------+
+|      10 | rams    | A        | CSE    | mumbai    |    88 |
+|      11 | raja    | A        | CSE    | pune      |    87 |
+|      12 | vikas   | A        | ECE    | chennai   |    93 |
+|      13 | phani   | C        | EEE    | chennai   |    91 |
+|      14 | chandu  | C        | ECE    | kerala    |    73 |
+|      15 | prakesh | A        | CSE    | goa       |    53 |
+|      16 | surya   | B        | IT     | tamilnadu |    93 |
+|      17 | naveen  | B        | EEE    | dehli     |    86 |
+|      18 | srinu   | A        | IT     | kochi     |    98 |
+|      19 | lucky   | B        | IT     | jammu     |    83 |
++---------+---------+----------+--------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql>  delete from studentdata where division="B";
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> select * from studentdata;
++---------+---------+----------+--------+---------+-------+
+| roll_no | name    | division | branch | city    | marks |
++---------+---------+----------+--------+---------+-------+
+|      10 | rams    | A        | CSE    | mumbai  |    88 |
+|      11 | raja    | A        | CSE    | pune    |    87 |
+|      12 | vikas   | A        | ECE    | chennai |    93 |
+|      13 | phani   | C        | EEE    | chennai |    91 |
+|      14 | chandu  | C        | ECE    | kerala  |    73 |
+|      15 | prakesh | A        | CSE    | goa     |    53 |
+|      18 | srinu   | A        | IT     | kochi   |    98 |
++---------+---------+----------+--------+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table studentdata_2(roll_no int,name varchar(55));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc studentdata_2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | YES  |     | NULL    |       |
+| name    | varchar(55) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into studentdata_2(roll_no,name) values(1,"kishor"),(2,"dinesh"),(3,"shyam");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentdata_2;
++---------+--------+
+| roll_no | name   |
++---------+--------+
+|       1 | kishor |
+|       2 | dinesh |
+|       3 | shyam  |
++---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select roll_no from studentdata union select roll_no from studentdata_2;
++---------+
+| roll_no |
++---------+
+|      10 |
+|      11 |
+|      12 |
+|      13 |
+|      14 |
+|      15 |
+|      18 |
+|       1 |
+|       2 |
+|       3 |
++---------+
+10 rows in set (0.01 sec)
+mysql> select upper(name) as uppernames from studentdata;
++------------+
+| uppernames |
++------------+
+| RAMS       |
+| RAJA       |
+| VIKAS      |
+| PHANI      |
+| CHANDU     |
+| PRAKESH    |
+| SRINU      |
++------------+
+7 rows in set (0.00 sec)
+mysql>  select bin(marks),hex(marks) from studentdata;
++------------+------------+
+| bin(marks) | hex(marks) |
++------------+------------+
+| 1011000    | 58         |
+| 1010111    | 57         |
+| 1011101    | 5D         |
+| 1011011    | 5B         |
+| 1001001    | 49         |
+| 110101     | 35         |
+| 1100010    | 62         |
++------------+------------+
+7 rows in set (0.00 sec)
+
+
+2Q)
+
+mysql> create table Customer(cust_id int not null primary key auto_increment,cust_name varchar(20),product varchar(20),quantity int, total_price int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc Customer;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| cust_id     | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name   | varchar(20) | YES  |     | NULL    |                |
+| product     | varchar(20) | YES  |     | NULL    |                |
+| quantity    | int         | YES  |     | NULL    |                |
+| total_price | int         | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+mysql>  insert into  Customer(cust_name,product,quantity,total_price) values("ramu","pen",200,30),("brahmi","car",20,500000),("raju","bikes",50,100000),("abhi","chairs",200,2000),("gyan","books",2000,40);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Customer;
++---------+-----------+---------+----------+-------------+
+| cust_id | cust_name | product | quantity | total_price |
++---------+-----------+---------+----------+-------------+
+|       1 | ramu      | pen     |      200 |          30 |
+|       2 | brahmi    | car     |       20 |      500000 |
+|       3 | raju      | bikes   |       50 |      100000 |
+|       4 | abhi      | chairs  |      200 |        2000 |
+|       5 | gyan      | books   |     2000 |          40 |
++---------+-----------+---------+----------+-------------+
+5 rows in set (0.00 sec)
+mysql> alter table Customer add price_per_qnty int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Customer;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(20) | YES  |     | NULL    |                |
+| product        | varchar(20) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+mysql> select * from Customer;
++---------+-----------+---------+----------+-------------+----------------+
+| cust_id | cust_name | product | quantity | total_price | price_per_qnty |
++---------+-----------+---------+----------+-------------+----------------+
+|       1 | ramu      | pen     |      200 |          30 |           NULL |
+|       2 | brahmi    | car     |       20 |      500000 |           NULL |
+|       3 | raju      | bikes   |       50 |      100000 |           NULL |
+|       4 | abhi      | chairs  |      200 |        2000 |           NULL |
+|       5 | gyan      | books   |     2000 |          40 |           NULL |
++---------+-----------+---------+----------+-------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> create view Cust_View as select cust_id,cust_name from Customer;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc Customer;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(20) | YES  |     | NULL    |                |
+| product        | varchar(20) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>  alter view cust_view(cust_id,cust_name,total_price)as select cust_id,cust_name,total_price from Customer;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from cust_view;
++---------+-----------+-------------+
+| cust_id | cust_name | total_price |
++---------+-----------+-------------+
+|       1 | ramu      |          30 |
+|       2 | brahmi    |      500000 |
+|       3 | raju      |      100000 |
+|       4 | abhi      |        2000 |
+|       5 | gyan      |          40 |
++---------+-----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> drop view cust_view;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create index cust_index on customers(cust_name);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop index cust_index on customers;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> alter table Customer modify cust_id int auto_increment;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| cust_id        | int         | NO   | PRI | NULL    | auto_increment |
+| cust_name      | varchar(20) | YES  |     | NULL    |                |
+| product        | varchar(20) | YES  |     | NULL    |                |
+| quantity       | int         | YES  |     | NULL    |                |
+| total_price    | int         | YES  |     | NULL    |                |
+| price_per_qnty | int         | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+mysql>   alter table Customer rename to My_Customer;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  drop table My_Customer;
+Query OK, 0 rows affected (0.03 sec)
